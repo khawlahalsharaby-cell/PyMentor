@@ -48,3 +48,23 @@ Never upload your `.env` file or expose your API key on GitHub.
 ## 📌 Project Status
 
 An ongoing educational project under development.
+
+## 📸 Project Screenshots
+
+### Home Dashboard
+
+## 📸 Project Screenshots
+
+![PyMentor Screenshot 1](screenshots/ai1.png)
+
+![PyMentor Screenshot 2](screenshots/ai2.png)
+
+![PyMentor Screenshot 3](screenshots/ai3.png)
+
+![PyMentor Screenshot 4](screenshots/ai4.png)
+
+![PyMentor Screenshot 5](screenshots/ai5.png)
+
+![PyMentor Screenshot 6](screenshots/ai6.png)
+
+
