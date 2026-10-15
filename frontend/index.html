@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PyMentor — مساعد بايثون الذكي</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app">
+
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">
+        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M24 4C15 4 15.6 8 15.6 8l.01 4.2h8.5v1.2H12.4S4 12.5 4 22.6c0 10.1 7.3 9.7 7.3 9.7h4.4v-4.6s-.2-7.3 7.2-7.3h8.4s6.8.1 6.8-6.6V10s1-6-14.1-6z" fill="url(#g1)"/>
+          <path d="M24 44c9 0 8.4-4 8.4-4l-.01-4.2h-8.5v-1.2h11.7s8.4-.7 8.4-10.8c0-10.1-7.3-9.7-7.3-9.7h-4.4v4.6s.2 7.3-7.2 7.3h-8.4s-6.8-.1-6.8 6.6V38s-1 6 14.1 6z" fill="url(#g2)"/>
+          <circle cx="17.6" cy="9.4" r="1.6" fill="#0B0E14"/>
+          <circle cx="30.4" cy="38.6" r="1.6" fill="#0B0E14"/>
+          <defs>
+            <linearGradient id="g1" x1="4" y1="4" x2="30" y2="30" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#7CA6FF"/><stop offset="1" stop-color="#5B8DEF"/>
+            </linearGradient>
+            <linearGradient id="g2" x1="18" y1="18" x2="44" y2="44" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#F2C14E"/><stop offset="1" stop-color="#D9A324"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <span class="brand-name">PyMentor</span>
+        <span class="brand-sub">مساعد بايثون الذكي</span>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <button class="nav-item is-active" data-view="dashboard">
+        <span class="nav-icon">⌂</span><span>الرئيسية</span>
+      </button>
+      <button class="nav-item" data-view="chat">
+        <span class="nav-icon">✦</span><span>المحادثة</span>
+      </button>
+      <button class="nav-item" data-view="topics">
+        <span class="nav-icon">▤</span><span>تعلّم بايثون</span>
+      </button>
+      <button class="nav-item" data-view="exercises">
+        <span class="nav-icon">✎</span><span>تمارين</span>
+      </button>
+      <button class="nav-item" data-view="quiz">
+        <span class="nav-icon">◈</span><span>اختبار سريع</span>
+      </button>
+      <button class="nav-item" data-view="progress">
+        <span class="nav-icon">◔</span><span>تقدّمي</span>
+      </button>
+      <button class="nav-item" data-view="settings">
+        <span class="nav-icon">⚙</span><span>الإعدادات</span>
+      </button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="streak-pill">
+        <span class="streak-flame">🔥</span>
+        <div>
+          <strong id="sb-streak">0</strong>
+          <small>أيام متتالية</small>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ===== MAIN ===== -->
+  <main class="main">
+
+    <!-- ---------- DASHBOARD ---------- -->
+    <section class="view is-active" id="view-dashboard">
+      <header class="view-header">
+        <div>
+          <h1 id="greeting">أهلًا بك مجددًا 👋</h1>
+          <p class="muted">لنكمل رحلتك في تعلّم بايثون من حيث توقفت.</p>
+        </div>
+        <button class="btn btn-primary" id="btn-start-learning">ابدأ التعلم <span>→</span></button>
+      </header>
+
+      <div class="hero-panel">
+        <div class="hero-copy">
+          <span class="hero-kicker">مساعدك الشخصي في بايثون</span>
+          <h2>اسأل. جرّب. افهم. اكتب كودًا يعمل من أول مرة.</h2>
+          <p class="muted">PyMentor يشرح المفاهيم، يحلّل أخطاء الكود، ويقدّم تلميحات للواجبات بدل حلها مباشرة — تمامًا كما يفعل مرشد حقيقي.</p>
+          <button class="btn btn-ghost" id="hero-chat-btn">اسأل PyMentor الآن</button>
+        </div>
+        <div class="hero-code">
+          <div class="code-window">
+            <div class="code-titlebar">
+              <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+              <span class="code-filename">lesson_01.py</span>
+            </div>
+            <pre class="code-body"><code id="hero-typing"></code><span class="caret">▌</span></pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="stat-grid">
+        <div class="stat-card">
+          <span class="stat-label">مواضيع تم تعلّمها</span>
+          <strong class="stat-value" id="stat-topics">0<small>/10</small></strong>
+          <div class="stat-bar"><span style="width:0%" id="stat-topics-bar"></span></div>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">أسئلة طُرحت على المساعد</span>
+          <strong class="stat-value" id="stat-questions">0</strong>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">أفضل نتيجة اختبار</span>
+          <strong class="stat-value" id="stat-quiz">—</strong>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">تمارين محلولة</span>
+          <strong class="stat-value" id="stat-exercises">0</strong>
+        </div>
+      </div>
+
+      <div class="section-block">
+        <div class="section-heading">
+          <h3>أكمل من حيث توقفت</h3>
+        </div>
+        <div class="topics-strip" id="dashboard-topics"></div>
+      </div>
+    </section>
+
+    <!-- ---------- CHAT ---------- -->
+    <section class="view" id="view-chat">
+      <div class="chat-layout">
+
+        <aside class="history-panel">
+          <button class="btn btn-primary btn-block" id="btn-new-chat">+ محادثة جديدة</button>
+          <div class="history-search">
+            <input type="text" id="history-search" placeholder="ابحث في المحادثات...">
+          </div>
+          <div class="history-list" id="history-list"></div>
+        </aside>
+
+        <div class="chat-panel">
+          <header class="chat-header">
+            <div class="bot-id">
+              <div class="bot-avatar">🐍</div>
+              <div>
+                <strong>PyMentor</strong>
+                <div class="bot-status"><span class="status-dot"></span> متصل الآن</div>
+              </div>
+            </div>
+            <span class="scope-badge">مخصص لبايثون فقط</span>
+          </header>
+
+          <div class="chat-messages" id="chat-messages">
+            <div class="chat-empty" id="chat-empty">
+              <h3>بماذا تريد أن نبدأ؟</h3>
+              <p class="muted">جرّب أحد الاقتراحات، أو اكتب سؤالك مباشرة.</p>
+              <div class="suggestions" id="suggestions"></div>
+            </div>
+          </div>
+
+          <div class="typing-indicator" id="typing-indicator" hidden>
+            <div class="bot-avatar sm">🐍</div>
+            <div class="typing-dots"><span></span><span></span><span></span></div>
+          </div>
+
+          <form class="chat-input-bar" id="chat-form">
+            <textarea id="chat-input" rows="1" placeholder="اكتب سؤالك عن بايثون... (Shift+Enter لسطر جديد)"></textarea>
+            <button type="submit" class="btn btn-send" id="btn-send" aria-label="إرسال">➤</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---------- TOPICS ---------- -->
+    <section class="view" id="view-topics">
+      <header class="view-header">
+        <div>
+          <h1>تعلّم بايثون</h1>
+          <p class="muted">مسار تعليمي متدرّج من الأساسيات حتى معالجة الأخطاء.</p>
+        </div>
+      </header>
+      <div class="topics-grid" id="topics-grid"></div>
+    </section>
+
+    <!-- ---------- EXERCISES ---------- -->
+    <section class="view" id="view-exercises">
+      <header class="view-header">
+        <div>
+          <h1>تمارين بايثون</h1>
+          <p class="muted">اختبر فهمك بتمارين قصيرة قبل الانتقال للموضوع التالي.</p>
+        </div>
+      </header>
+      <div class="exercise-list" id="exercise-list"></div>
+    </section>
+
+    <!-- ---------- QUIZ ---------- -->
+    <section class="view" id="view-quiz">
+      <header class="view-header">
+        <div>
+          <h1>اختبار سريع</h1>
+          <p class="muted">خمسة أسئلة لقياس فهمك العام لأساسيات بايثون.</p>
+        </div>
+      </header>
+
+      <div class="quiz-card" id="quiz-card">
+        <div class="quiz-intro" id="quiz-intro">
+          <p class="muted">استعد لاختبار من 5 أسئلة اختيار من متعدد. لا يوجد وقت محدد.</p>
+          <button class="btn btn-primary" id="btn-start-quiz">ابدأ الاختبار</button>
+        </div>
+
+        <div class="quiz-active" id="quiz-active" hidden>
+          <div class="quiz-progress">
+            <span id="quiz-qnum">السؤال 1 من 5</span>
+            <div class="quiz-progress-bar"><span id="quiz-progress-fill"></span></div>
+          </div>
+          <h3 class="quiz-question" id="quiz-question"></h3>
+          <div class="quiz-options" id="quiz-options"></div>
+          <div class="quiz-explain" id="quiz-explain" hidden></div>
+          <button class="btn btn-primary" id="btn-next-question" hidden>السؤال التالي →</button>
+        </div>
+
+        <div class="quiz-result" id="quiz-result" hidden>
+          <div class="result-ring">
+            <strong id="result-score">0%</strong>
+          </div>
+          <h3 id="result-title"></h3>
+          <p class="muted" id="result-message"></p>
+          <button class="btn btn-primary" id="btn-retry-quiz">إعادة المحاولة</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---------- PROGRESS ---------- -->
+    <section class="view" id="view-progress">
+      <header class="view-header">
+        <div>
+          <h1>تقدّمي</h1>
+          <p class="muted">نظرة شاملة على مسيرتك التعليمية حتى الآن.</p>
+        </div>
+      </header>
+
+      <div class="progress-grid">
+        <div class="progress-card big">
+          <span class="stat-label">مواضيع تم تعلّمها</span>
+          <strong class="stat-value" id="pg-topics">0<small>/10</small></strong>
+          <div class="stat-bar"><span id="pg-topics-bar"></span></div>
+        </div>
+        <div class="progress-card">
+          <span class="stat-label">أسئلة طُرحت</span>
+          <strong class="stat-value" id="pg-questions">0</strong>
+        </div>
+        <div class="progress-card">
+          <span class="stat-label">نتيجة آخر اختبار</span>
+          <strong class="stat-value" id="pg-quiz">—</strong>
+        </div>
+        <div class="progress-card">
+          <span class="stat-label">تمارين محلولة</span>
+          <strong class="stat-value" id="pg-exercises">0</strong>
+        </div>
+        <div class="progress-card">
+          <span class="stat-label">أيام التعلّم المتتالية</span>
+          <strong class="stat-value" id="pg-streak">0</strong>
+        </div>
+      </div>
+
+      <div class="section-block">
+        <div class="section-heading"><h3>حالة المواضيع</h3></div>
+        <div class="topic-status-list" id="topic-status-list"></div>
+      </div>
+    </section>
+
+    <!-- ---------- SETTINGS ---------- -->
+    <section class="view" id="view-settings">
+      <header class="view-header">
+        <div>
+          <h1>الإعدادات</h1>
+          <p class="muted">تحكّم في تفضيلات المساعد وبياناتك المحلية.</p>
+        </div>
+      </header>
+
+      <div class="settings-list">
+        <div class="settings-row">
+          <div>
+            <strong>مستوى الشرح</strong>
+            <p class="muted">يؤثر في تفصيل إجابات PyMentor.</p>
+          </div>
+          <select id="setting-level">
+            <option value="beginner">مبتدئ تمامًا</option>
+            <option value="intermediate">لدي أساسيات</option>
+          </select>
+        </div>
+        <div class="settings-row">
+          <div>
+            <strong>نمط التلميحات</strong>
+            <p class="muted">هل يعطيك المساعد الحل مباشرة أم تلميحات فقط؟</p>
+          </div>
+          <select id="setting-hints">
+            <option value="hints">تلميحات فقط (موصى به)</option>
+            <option value="direct">حلول مباشرة</option>
+          </select>
+        </div>
+        <div class="settings-row">
+          <div>
+            <strong>عنوان خادم API</strong>
+            <p class="muted">عنوان FastAPI المحلي الذي تتصل به الواجهة.</p>
+          </div>
+          <input type="text" id="setting-api-url" value="http://127.0.0.1:8000">
+        </div>
+        <div class="settings-row danger">
+          <div>
+            <strong>مسح جميع البيانات المحلية</strong>
+            <p class="muted">يحذف كل المحادثات والتقدّم المخزّن في هذا المتصفح.</p>
+          </div>
+          <button class="btn btn-danger" id="btn-clear-data">مسح البيانات</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
